@@ -1,0 +1,38 @@
+{% load humanize %}
+
+{% include 'grades/header.html' %}
+
+<div id="main" style="height:300px;">
+    <h1>{{ heading }}</h1>
+    {% if content %}
+        <p> {{ content }} </p>
+    {% endif %}
+    {% if students_list %}
+        <table style="width:95%">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Test 1</th>
+                <th>Test 2</th>
+                <th>Test 3</th>
+                <th>Average </th>
+                <th colspan="2">Tools</th>
+            </tr>
+            {% for student in students_list %}
+                <tr>
+                    <td>{{ student.first_name  }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.test1 }}</td>
+                    <td>{{ student.test2 }}</td>
+                    <td>{{ student.test3 }}</td>
+                    <td>{{ student.avg|floatformat:2 }}</td>
+                    <td><a href="{% url 'grade' student.id %}">Edit</a></td>
+                    <td><a href="{% url 'delete' student.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p><strong>No student grades are available.</strong></p>
+    {% endif %}
+</div>
+{% include 'grades/footer.html' %}

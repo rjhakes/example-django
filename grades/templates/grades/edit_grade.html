@@ -1,0 +1,36 @@
+{% include 'grades/header.html' %}
+
+<div id="main" style="height:300px;">
+    <h1>{{ heading }}</h1>
+    <p> {{ content }} </p>
+    {% if errors %}
+        <ul>
+            {% for error in errors %}
+                <li style="color:red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form role="form" action="{% url 'grade' student.id %}" method="post" novalidate>
+        {% csrf_token %}
+        <table style="width:auto;">
+            <tr><td><label>First Name: *</label></td>
+                <td><input id="first_name" type="text" name="first_name" value="{{ student.first_name }}" required></td>
+            </tr>
+            <tr><td><label>Last Name: *</label></td>
+                <td><input id="last_name" type="text" name="last_name" value="{{ student.last_name }}" required></td>
+            </tr>
+            <tr><td><label>Test 1: *</label></td>
+                <td><input id="test1" type="text" name="test1" value="{{ student.test1 }}" required></td>
+            </tr>
+            <tr><td><label>Test 2: *</label></td>
+                <td><input id="test2" type="text" name="test2" value="{{ student.test2 }}" required></td>
+            <tr><td><label>Test 3: *</label></td>
+                <td><input id="test3" type="text" name="test3" value="{{ student.test3 }}" required></td>
+            </tr>
+            <tr>
+                <td></td><td><button type="submit">Update</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% include 'grades/footer.html' %}
